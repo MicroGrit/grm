@@ -45,23 +45,46 @@ grm_description = COLOR['red'] + COLOR['bold'] \
                   + COLOR['end']
 
 ralf_end = "}\n"
-reg_end = "}\n\n"
+reg_end = "\t}\n\n"
 
 reg_format = ""
 field_format = ""
-mem_format = ""
+# mem_format = ""
 
 
 def format_msg(color, message):
     return color + message + COLOR['end']
 
+def gen_mem_format(row):
+    mem_format = ""
+    mem_name = row[2]
+    mem_addroffset = row[0]
+    mem_size = row[9]
+    mem_bits = row[10]
+    mem_access = row[8]
+    mem_format = f'\tmemory {mem_name} @{mem_addroffset} {{\n' \
+                 + f"\t\tsize\t{mem_size};\n" \
+                 + f"\t\tbits\t{mem_bits};\n" \
+                 + f"\t\taccress\t{mem_access};\n" \
+                 + f"\t}}\n\n"
+    return mem_format
 
-def gen_mem_format():
-    pass
 
-
-def gen_field_format():
-    pass
+def gen_field_format(row):
+    field_name = row[5]
+    field_access = row[8]
+    field_reset_value = row[7]
+    match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
+    bitwidth = int(match.group('left')) - int(match.group('right')) + 1
+    field_start_pos = int(match.group('right'))
+    field_format = ""
+    field_format = \
+        f"\t\tfield {field_name} @{field_start_pos} {{\n" \
+        + f"\t\t\tbits\t{bitwidth}\t;\n" \
+        + f"\t\t\taccsss\t{field_access}\t;\n" \
+        + f"\t\t\treset\t{field_reset_value}\t;\n" \
+        + "\t\t}\n"
+    return field_format
 
 
 if __name__ == '__main__':
@@ -85,7 +108,7 @@ if __name__ == '__main__':
                   + f"\tendian\tlittle;\n\n"
 
     with open(args.f, 'r', newline='', encoding='utf-8-sig') as csv_file, \
-            open(ralf_file_name, 'w', encoding='utf-8') as ralf_file:
+            open(ralf_file_name, 'w+', encoding='utf-8') as ralf_file:
         ralf_file.write(ralf_file_annotate)
         ralf_file.write(ralf_header)
         rows = csv.reader(csv_file)
@@ -96,52 +119,15 @@ if __name__ == '__main__':
             if (row[1] == 'reg'):
                 reg_name = row[2]
                 reg_address_offset = row[0]
-                field_name = row[5]
-                field_access = row[8]
-                field_reset_value = row[7]
-                reg_format = f"register {reg_name} @{reg_address_offset} {{\n" \
-                             + "\tbytes 4;\n"
-                match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
-                # print(match.group('left'),match.group('right'))
-                bitwidth = int(match.group('left')) - int(match.group('right')) + 1
-                field_start_pos = int(match.group('right'))
-                field_format = ""
-                field_format = \
-                    f"\tfield {field_name} @{field_start_pos} {{\n" \
-                    + f"\t\tbits\t{bitwidth}\t;\n" \
-                    + f"\t\taccsss\t{field_access}\t;\n" \
-                    + f"\t\treset\t{field_reset_value}\t;\n" \
-                    + "\t}\n"
-                reg_format = reg_format + field_format
+                reg_format = f"\tregister {reg_name} @{reg_address_offset} {{\n" \
+                             + "\t\tbytes 4;\n"
+                reg_format = reg_format + gen_field_format(row)
                 ralf_file.write(reg_format)
             elif (row[1] == 'mem'):
-                mem_format = ""
-                mem_name = row[2]
-                addroffset = row[0]
-                mem_size = row[9]
-                mem_bits = row[10]
-                mem_access = row[8]
-                mem_format = f'memory {mem_name} @{addroffset} {{\n' \
-                             + f"\tsize\t{mem_size};\n" \
-                             + f"\tbits\t{mem_bits};\n" \
-                             + f"\taccress\t{mem_access};\n" \
-                             + f"}}\n\n"
-                ralf_file.write(mem_format)
+                ralf_file.write(gen_mem_format(row))
             else:
-                field_name = row[5]
-                field_access = row[8]
-                field_reset_value = row[7]
                 match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
-                bitwidth = int(match.group('left')) - int(match.group('right')) + 1
-                field_start_pos = int(match.group('right'))
-                field_format = ""
-                field_format = \
-                    f"\tfield {field_name} @{field_start_pos} {{\n" \
-                    + f"\t\tbits\t{bitwidth}\t;\n" \
-                    + f"\t\taccsss\t{field_access}\t;\n" \
-                    + f"\t\treset\t{field_reset_value}\t;\n" \
-                    + "\t}\n"
-                ralf_file.write(field_format)
+                ralf_file.write(gen_field_format(row))
                 if (int(match.group('right')) == 0):
                     ralf_file.write(reg_end)
         ralf_file.write(ralf_end)
