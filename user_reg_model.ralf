@@ -1,22 +1,22 @@
 #	module:	user_reg_model
-#	gen_time:	2022-07-02 15:46:48 CST
+#	gen_time:	2022-07-02 17:07:39 CST
 block user_reg_model {
 	bytes	4;
 	endian	little;
 
-	register ﻿GDMA_MISC_CONF_REG @﻿0x0044 {
+	register GDMA_MISC_CONF_REG @0x0044 {
 		bytes 4;
 		field resvered1 @4 {
 			bits	28	;
 			access	ro	;
 			reset	28'b0	;
 		}
-		field ﻿GDMA_AHBM_RST_INTER @3 {
+		field GDMA_AHBM_RST_INTER @3 {
 			bits	1	;
 			access	rw	;
 			reset	1'b1	;
 		}
-		field ﻿GDMA_ARB_PRI_DIS @2 {
+		field GDMA_ARB_PRI_DIS @2 {
 			bits	1	;
 			access	rw	;
 			reset	1'b0	;
@@ -26,7 +26,7 @@ block user_reg_model {
 			access	ro	;
 			reset	1'b0	;
 		}
-		field ﻿GDMA_CLK_EN @0 {
+		field GDMA_CLK_EN @0 {
 			bits	1	;
 			access	rw	;
 			reset	1'b1	;

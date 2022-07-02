@@ -99,7 +99,7 @@ if __name__ == '__main__':
                   + f"\tbytes\t4;\n" \
                   + f"\tendian\tlittle;\n\n"
 
-    with open(args.f, 'r', newline='', encoding='utf-8-sig') as csv_file, \
+    with open(args.f, 'r', newline='', encoding='utf-8') as csv_file, \
             open(ralf_file_name, 'w+', encoding='utf-8') as ralf_file:
         ralf_file.write(ralf_file_annotate)
         ralf_file.write(ralf_header)
@@ -108,6 +108,8 @@ if __name__ == '__main__':
         next(csv_file)  # ignore csv file header
 
         for row in rows:
+            # remove BOM <feff>
+            row = list(map(lambda item: item.encode('utf-8').decode('utf-8-sig'),row))
             if (row[1] == 'reg'):
                 reg_name = row[2]
                 reg_address_offset = row[0]
