@@ -125,3 +125,7 @@ if __name__ == '__main__':
                     ralf_file.write(reg_end)
         ralf_file.write(ralf_end)
         print(format_msg(COLOR['yellow'] + COLOR['bold'], "Output: "), ralf_file_name)
+
+        cmd = f'ralgen -P +prunable -t {modlue_name[0]} -c abF -uvm {ralf_file_name}'
+        print(format_msg(COLOR['yellow'] + COLOR['bold'], "Generate Reg Model PKG CMD:"),cmd)
+        os.system(cmd)
