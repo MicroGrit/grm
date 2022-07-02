@@ -47,11 +47,6 @@ grm_description = COLOR['red'] + COLOR['bold'] \
 ralf_end = "}\n"
 reg_end = "\t}\n\n"
 
-reg_format = ""
-field_format = ""
-# mem_format = ""
-
-
 def format_msg(color, message):
     return color + message + COLOR['end']
 
@@ -68,7 +63,6 @@ def gen_mem_format(row):
                  + f"\t\taccress\t{mem_access};\n" \
                  + f"\t}}\n\n"
     return mem_format
-
 
 def gen_field_format(row):
     field_name = row[5]
@@ -119,6 +113,7 @@ if __name__ == '__main__':
             if (row[1] == 'reg'):
                 reg_name = row[2]
                 reg_address_offset = row[0]
+                reg_format = ""
                 reg_format = f"\tregister {reg_name} @{reg_address_offset} {{\n" \
                              + "\t\tbytes 4;\n"
                 reg_format = reg_format + gen_field_format(row)
