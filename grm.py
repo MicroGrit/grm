@@ -94,17 +94,23 @@ if __name__ == '__main__':
 
         for row in rows:
             if (row[1] == 'reg'):
-                reg_format = "register " + row[2] + " @" + row[0] + " {\n" \
+                reg_name = row[2]
+                reg_address_offset = row[0]
+                field_name = row[5]
+                field_access = row[8]
+                field_reset_value = row[7]
+                reg_format = f"register {reg_name} @{reg_address_offset} {{\n" \
                              + "\tbytes 4;\n"
                 match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
                 # print(match.group('left'),match.group('right'))
                 bitwidth = int(match.group('left')) - int(match.group('right')) + 1
+                field_start_pos = int(match.group('right'))
                 field_format = ""
                 field_format = \
-                    "\tfield " + row[5] + " @" + match.group('right') + " {\n" \
-                    + "\t\tbits \t" + str(bitwidth) + "\t;\n" \
-                    + "\t\taccsss \t" + row[8] + "\t;\n" \
-                    + "\t\treset \t" + row[7] + "\t;\n" \
+                    f"\tfield {field_name} @{field_start_pos} {{\n" \
+                    + f"\t\tbits\t{bitwidth}\t;\n" \
+                    + f"\t\taccsss\t{field_access}\t;\n" \
+                    + f"\t\treset\t{field_reset_value}\t;\n" \
                     + "\t}\n"
                 reg_format = reg_format + field_format
                 ralf_file.write(reg_format)
@@ -122,17 +128,21 @@ if __name__ == '__main__':
                              + f"}}\n\n"
                 ralf_file.write(mem_format)
             else:
+                field_name = row[5]
+                field_access = row[8]
+                field_reset_value = row[7]
                 match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
                 bitwidth = int(match.group('left')) - int(match.group('right')) + 1
+                field_start_pos = int(match.group('right'))
                 field_format = ""
                 field_format = \
-                    "\tfield " + row[5] + " @" + match.group('right') + " {\n" \
-                    + "\t\tbits \t" + str(bitwidth) + "\t;\n" \
-                    + "\t\taccsss \t" + row[8] + "\t;\n" \
-                    + "\t\treset \t" + row[7] + "\t;\n" \
+                    f"\tfield {field_name} @{field_start_pos} {{\n" \
+                    + f"\t\tbits\t{bitwidth}\t;\n" \
+                    + f"\t\taccsss\t{field_access}\t;\n" \
+                    + f"\t\treset\t{field_reset_value}\t;\n" \
                     + "\t}\n"
                 ralf_file.write(field_format)
-                if (int(match.group('right') == 0)):
+                if (int(match.group('right')) == 0):
                     ralf_file.write(reg_end)
         ralf_file.write(ralf_end)
         print(format_msg(COLOR['yellow'] + COLOR['bold'], "Output: "), ralf_file_name)
