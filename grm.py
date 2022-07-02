@@ -51,7 +51,6 @@ def format_msg(color, message):
     return color + message + COLOR['end']
 
 def gen_mem_format(row):
-    mem_format = ""
     mem_name = row[2]
     mem_addroffset = row[0]
     mem_size = row[9]
@@ -71,7 +70,6 @@ def gen_field_format(row):
     match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
     bitwidth = int(match.group('left')) - int(match.group('right')) + 1
     field_start_pos = int(match.group('right'))
-    field_format = ""
     field_format = \
         f"\t\tfield {field_name} @{field_start_pos} {{\n" \
         + f"\t\t\tbits\t{bitwidth}\t;\n" \
