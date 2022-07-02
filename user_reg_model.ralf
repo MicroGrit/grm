@@ -1,5 +1,5 @@
 #	module:	user_reg_model
-#	gen_time:	2022-07-02 09:20:01 CST
+#	gen_time:	2022-07-02 15:46:48 CST
 block user_reg_model {
 	bytes	4;
 	endian	little;
@@ -8,27 +8,27 @@ block user_reg_model {
 		bytes 4;
 		field resvered1 @4 {
 			bits	28	;
-			accsss	ro	;
+			access	ro	;
 			reset	28'b0	;
 		}
 		field ﻿GDMA_AHBM_RST_INTER @3 {
 			bits	1	;
-			accsss	rw	;
+			access	rw	;
 			reset	1'b1	;
 		}
 		field ﻿GDMA_ARB_PRI_DIS @2 {
 			bits	1	;
-			accsss	rw	;
+			access	rw	;
 			reset	1'b0	;
 		}
 		field resvered0 @1 {
 			bits	1	;
-			accsss	ro	;
+			access	ro	;
 			reset	1'b0	;
 		}
 		field ﻿GDMA_CLK_EN @0 {
 			bits	1	;
-			accsss	rw	;
+			access	rw	;
 			reset	1'b1	;
 		}
 	}
@@ -36,7 +36,7 @@ block user_reg_model {
 	memory tx_ram @0x00ff {
 		size	32;
 		bits	128;
-		accress	rw;
+		access	rw;
 	}
 
 }

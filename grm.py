@@ -59,7 +59,7 @@ def gen_mem_format(row):
     mem_format = f'\tmemory {mem_name} @{mem_addroffset} {{\n' \
                  + f"\t\tsize\t{mem_size};\n" \
                  + f"\t\tbits\t{mem_bits};\n" \
-                 + f"\t\taccress\t{mem_access};\n" \
+                 + f"\t\taccess\t{mem_access};\n" \
                  + f"\t}}\n\n"
     return mem_format
 
@@ -73,7 +73,7 @@ def gen_field_format(row):
     field_format = \
         f"\t\tfield {field_name} @{field_start_pos} {{\n" \
         + f"\t\t\tbits\t{bitwidth}\t;\n" \
-        + f"\t\t\taccsss\t{field_access}\t;\n" \
+        + f"\t\t\taccess\t{field_access}\t;\n" \
         + f"\t\t\treset\t{field_reset_value}\t;\n" \
         + "\t\t}\n"
     return field_format
