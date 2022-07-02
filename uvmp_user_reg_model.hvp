@@ -1,0 +1,52 @@
+plan reg_user_reg_model_GDMA_MISC_CONF_REG;
+    attribute string path = "";
+
+    feature resvered1_bits;
+        measure Group fcov;
+            source = "group instance:**::ral_reg_user_reg_model_GDMA_MISC_CONF_REG::cg_bits.${path}.resvered1";
+        endmeasure
+    endfeature
+    feature GDMA_AHBM_RST_INTER_bits;
+        measure Group fcov;
+            source = "group instance:**::ral_reg_user_reg_model_GDMA_MISC_CONF_REG::cg_bits.${path}.GDMA_AHBM_RST_INTER";
+        endmeasure
+    endfeature
+    feature GDMA_ARB_PRI_DIS_bits;
+        measure Group fcov;
+            source = "group instance:**::ral_reg_user_reg_model_GDMA_MISC_CONF_REG::cg_bits.${path}.GDMA_ARB_PRI_DIS";
+        endmeasure
+    endfeature
+    feature resvered0_bits;
+        measure Group fcov;
+            source = "group instance:**::ral_reg_user_reg_model_GDMA_MISC_CONF_REG::cg_bits.${path}.resvered0";
+        endmeasure
+    endfeature
+    feature GDMA_CLK_EN_bits;
+        measure Group fcov;
+            source = "group instance:**::ral_reg_user_reg_model_GDMA_MISC_CONF_REG::cg_bits.${path}.GDMA_CLK_EN";
+        endmeasure
+    endfeature
+endplan
+
+
+plan block_user_reg_model;
+    attribute string path = "";
+
+    feature reg_GDMA_MISC_CONF_REG;
+        subplan reg_user_reg_model_GDMA_MISC_CONF_REG #(path="GDMA_MISC_CONF_REG");
+    endfeature
+
+    feature address_map;
+        measure Group fcov;
+            source = "group instance:**::ral_block_user_reg_model::cg_addr";
+        endmeasure
+    endfeature
+
+    feature field_values;
+        measure Group fcov;
+            source = "group instance:**::cg_vals";
+        endmeasure
+    endfeature
+endplan
+
+
