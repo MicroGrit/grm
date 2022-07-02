@@ -1,0 +1,7 @@
+﻿AddressOffset,Type,Name,ClockDomain,ResetDomain,FieldName,BitPos,DefaultValue,Access,MemSize,MemBits
+﻿0x0044,reg,﻿GDMA_MISC_CONF_REG,apb,rst_n,resvered1,[31:4],28'b0,ro,,
+,,,,,﻿GDMA_AHBM_RST_INTER,[3:3],1'b1,rw,,
+,,,,,﻿GDMA_ARB_PRI_DIS,[2:2],1'b0,rw,,
+,,,,,resvered0,[1:1],1'b0,ro,,
+,,,,,﻿GDMA_CLK_EN,[0:0],1'b1,rw,,
+0x00ff,mem,tx_ram,apb,rst_n,,,,rw,32,128
