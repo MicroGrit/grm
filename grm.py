@@ -1,16 +1,19 @@
 #!/Users/wenxian/opt/anaconda3/bin/python
 # -*- coding: utf-8 -*-
+"""
+Yingfan & Qiang is my idol! :)
+"""
 import csv
 import re
 import argparse
 import os
+import time
 
 '''
 Ref: https://docs.python.org/zh-cn/3/library/csv.html
-
 '''
 
-__version__ = "v0.1"
+__version__ = "V0.1"
 
 COLOR = {
     # basic colors
@@ -69,6 +72,11 @@ if __name__ == '__main__':
     modlue_name = os.path.basename(args.f).split('.')
     ralf_file_name = modlue_name[0] +'.ralf'
 
+    generate_time = time.strftime("%Y-%m-%d %H:%M:%S %Z")
+    ralf_file_annotate = f'#\tmodule:\t{modlue_name[0]}\n' \
+                        + f'#\tgen_time:\t{generate_time}\n'
+
+
     user_reg_model_name = modlue_name[0]
     ralf_header = f"block {user_reg_model_name} {{\n" \
         + f"\tbytes\t4;\n" \
@@ -76,7 +84,7 @@ if __name__ == '__main__':
     
     with open(args.f,'r', newline='', encoding='utf-8-sig') as csv_file, \
         open(ralf_file_name,'w',encoding='utf-8') as ralf_file:
-
+        ralf_file.write(ralf_file_annotate)
         ralf_file.write(ralf_header)
         rows = csv.reader(csv_file)
         # print(csv_file)
