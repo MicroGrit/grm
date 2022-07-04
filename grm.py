@@ -64,14 +64,14 @@ def gen_mem_format(row):
     return mem_format
 
 def gen_field_format(row):
-    field_name = row[5]
+    field_name = row[5].lower()
     field_access = row[8]
     field_reset_value = row[7]
     match = re.search(r'\[(?P<left>\d+)\:(?P<right>\d+)\]', row[6])  # [left:right]
     bitwidth = int(match.group('left')) - int(match.group('right')) + 1
     field_start_pos = int(match.group('right'))
     field_format = \
-        f"\t\tfield {field_name} @{field_start_pos} {{\n" \
+        f"\t\tfield {field_name} ({field_name}) @{field_start_pos} {{\n" \
         + f"\t\t\tbits\t{bitwidth}\t;\n" \
         + f"\t\t\taccess\t{field_access}\t;\n" \
         + f"\t\t\treset\t{field_reset_value}\t;\n" \
@@ -111,7 +111,7 @@ if __name__ == '__main__':
             # remove BOM <feff>
             row = list(map(lambda item: item.encode('utf-8').decode('utf-8-sig'),row))
             if (row[1] == 'reg'):
-                reg_name = row[2]
+                reg_name = row[2].upper()
                 reg_address_offset = row[0]
                 reg_format = ""
                 reg_format = f"\tregister {reg_name} @{reg_address_offset} {{\n" \
