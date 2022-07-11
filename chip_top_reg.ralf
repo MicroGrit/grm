@@ -1,0 +1,7 @@
+source "user_reg_model.ralf"
+
+system amba_peripheral {
+    bytes 4;
+    endian little;
+    block user_reg_model = user_reg_model0 (u_user_model_top.u_user_model_amba_reg) @'h0e000;
+}
