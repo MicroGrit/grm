@@ -1,4 +1,4 @@
-#!/Users/wenxian/opt/anaconda3/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
 Yingfan & Qiang is my idol! :)
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     with open(args.f, 'r', newline='', encoding='utf-8') as csv_file, \
             open(ralf_file_name, 'w+', encoding='utf-8') as ralf_file:
-        ralf_file.write(ralf_file_annotate)
+        # ralf_file.write(ralf_file_annotate)
         ralf_file.write(ralf_header)
         rows = csv.reader(csv_file)
         # print(csv_file)
@@ -128,6 +128,7 @@ if __name__ == '__main__':
         ralf_file.write(ralf_end)
         print(format_msg(COLOR['yellow'] + COLOR['bold'], "Output: "), ralf_file_name)
 
-        cmd = f'ralgen -P +prunable -t {modlue_name[0]} -c abF -uvm {ralf_file_name}'
+        # cmd = f'ralgen -P +prunable -t {modlue_name[0]} -c abF -uvm {ralf_file_name}'
+        cmd = 'ralgen -P +prunable -t amba_peripheral -c abF -uvm chip_top_reg.ralf'
         print(format_msg(COLOR['yellow'] + COLOR['bold'], "Generate Reg Model PKG CMD:"),cmd)
         os.system(cmd)
