@@ -6,10 +6,10 @@ import uvm_pkg::*;
 
 class ral_reg_user_reg_model_GDMA_MISC_CONF_REG extends uvm_reg;
 	uvm_reg_field resvered1;
-	rand uvm_reg_field GDMA_AHBM_RST_INTER;
-	rand uvm_reg_field GDMA_ARB_PRI_DIS;
+	rand uvm_reg_field gdma_ahbm_rst_inter;
+	rand uvm_reg_field gdma_arb_pri_dis;
 	uvm_reg_field resvered0;
-	rand uvm_reg_field GDMA_CLK_EN;
+	rand uvm_reg_field gdma_clk_en;
    local uvm_reg_data_t m_data;
    local uvm_reg_data_t m_be;
    local bit            m_is_read;
@@ -104,14 +104,14 @@ class ral_reg_user_reg_model_GDMA_MISC_CONF_REG extends uvm_reg;
 	      wildcard bins bit_27_rd = {29'b????????????????????????????1};
 	      option.weight = 84;
 	   }
-	   GDMA_AHBM_RST_INTER: coverpoint {m_data[3:3], m_is_read} iff(m_be) {
+	   gdma_ahbm_rst_inter: coverpoint {m_data[3:3], m_is_read} iff(m_be) {
 	      wildcard bins bit_0_wr_as_0 = {2'b00};
 	      wildcard bins bit_0_wr_as_1 = {2'b10};
 	      wildcard bins bit_0_rd_as_0 = {2'b01};
 	      wildcard bins bit_0_rd_as_1 = {2'b11};
 	      option.weight = 4;
 	   }
-	   GDMA_ARB_PRI_DIS: coverpoint {m_data[2:2], m_is_read} iff(m_be) {
+	   gdma_arb_pri_dis: coverpoint {m_data[2:2], m_is_read} iff(m_be) {
 	      wildcard bins bit_0_wr_as_0 = {2'b00};
 	      wildcard bins bit_0_wr_as_1 = {2'b10};
 	      wildcard bins bit_0_rd_as_0 = {2'b01};
@@ -124,7 +124,7 @@ class ral_reg_user_reg_model_GDMA_MISC_CONF_REG extends uvm_reg;
 	      wildcard bins bit_0_rd = {2'b?1};
 	      option.weight = 3;
 	   }
-	   GDMA_CLK_EN: coverpoint {m_data[0:0], m_is_read} iff(m_be) {
+	   gdma_clk_en: coverpoint {m_data[0:0], m_is_read} iff(m_be) {
 	      wildcard bins bit_0_wr_as_0 = {2'b00};
 	      wildcard bins bit_0_wr_as_1 = {2'b10};
 	      wildcard bins bit_0_rd_as_0 = {2'b01};
@@ -140,16 +140,16 @@ class ral_reg_user_reg_model_GDMA_MISC_CONF_REG extends uvm_reg;
 			bins others = { [28'h1:28'hFFFFFFE] };
 			option.weight = 3;
 		}
-		GDMA_AHBM_RST_INTER_value : coverpoint GDMA_AHBM_RST_INTER.value[0:0] {
+		gdma_ahbm_rst_inter_value : coverpoint gdma_ahbm_rst_inter.value[0:0] {
 			option.weight = 2;
 		}
-		GDMA_ARB_PRI_DIS_value : coverpoint GDMA_ARB_PRI_DIS.value[0:0] {
+		gdma_arb_pri_dis_value : coverpoint gdma_arb_pri_dis.value[0:0] {
 			option.weight = 2;
 		}
 		resvered0_value : coverpoint resvered0.value[0:0] {
 			option.weight = 2;
 		}
-		GDMA_CLK_EN_value : coverpoint GDMA_CLK_EN.value[0:0] {
+		gdma_clk_en_value : coverpoint gdma_clk_en.value[0:0] {
 			option.weight = 2;
 		}
 	endgroup : cg_vals
@@ -164,14 +164,14 @@ class ral_reg_user_reg_model_GDMA_MISC_CONF_REG extends uvm_reg;
    virtual function void build();
       this.resvered1 = uvm_reg_field::type_id::create("resvered1",,get_full_name());
       this.resvered1.configure(this, 28, 4, "RO", 0, 28'b0, 1, 0, 0);
-      this.GDMA_AHBM_RST_INTER = uvm_reg_field::type_id::create("GDMA_AHBM_RST_INTER",,get_full_name());
-      this.GDMA_AHBM_RST_INTER.configure(this, 1, 3, "RW", 0, 1'b1, 1, 0, 0);
-      this.GDMA_ARB_PRI_DIS = uvm_reg_field::type_id::create("GDMA_ARB_PRI_DIS",,get_full_name());
-      this.GDMA_ARB_PRI_DIS.configure(this, 1, 2, "RW", 0, 1'b0, 1, 0, 0);
+      this.gdma_ahbm_rst_inter = uvm_reg_field::type_id::create("gdma_ahbm_rst_inter",,get_full_name());
+      this.gdma_ahbm_rst_inter.configure(this, 1, 3, "RW", 0, 1'b1, 1, 0, 0);
+      this.gdma_arb_pri_dis = uvm_reg_field::type_id::create("gdma_arb_pri_dis",,get_full_name());
+      this.gdma_arb_pri_dis.configure(this, 1, 2, "RW", 0, 1'b0, 1, 0, 0);
       this.resvered0 = uvm_reg_field::type_id::create("resvered0",,get_full_name());
       this.resvered0.configure(this, 1, 1, "RO", 0, 1'b0, 1, 0, 0);
-      this.GDMA_CLK_EN = uvm_reg_field::type_id::create("GDMA_CLK_EN",,get_full_name());
-      this.GDMA_CLK_EN.configure(this, 1, 0, "RW", 0, 1'b1, 1, 0, 0);
+      this.gdma_clk_en = uvm_reg_field::type_id::create("gdma_clk_en",,get_full_name());
+      this.gdma_clk_en.configure(this, 1, 0, "RW", 0, 1'b1, 1, 0, 0);
    endfunction: build
 
 	`uvm_object_utils(ral_reg_user_reg_model_GDMA_MISC_CONF_REG)
@@ -216,14 +216,14 @@ class ral_block_user_reg_model extends uvm_reg_block;
    local uvm_reg_data_t m_offset;
 	uvm_reg_field GDMA_MISC_CONF_REG_resvered1;
 	uvm_reg_field resvered1;
-	rand uvm_reg_field GDMA_MISC_CONF_REG_GDMA_AHBM_RST_INTER;
-	rand uvm_reg_field GDMA_AHBM_RST_INTER;
-	rand uvm_reg_field GDMA_MISC_CONF_REG_GDMA_ARB_PRI_DIS;
-	rand uvm_reg_field GDMA_ARB_PRI_DIS;
+	rand uvm_reg_field GDMA_MISC_CONF_REG_gdma_ahbm_rst_inter;
+	rand uvm_reg_field gdma_ahbm_rst_inter;
+	rand uvm_reg_field GDMA_MISC_CONF_REG_gdma_arb_pri_dis;
+	rand uvm_reg_field gdma_arb_pri_dis;
 	uvm_reg_field GDMA_MISC_CONF_REG_resvered0;
 	uvm_reg_field resvered0;
-	rand uvm_reg_field GDMA_MISC_CONF_REG_GDMA_CLK_EN;
-	rand uvm_reg_field GDMA_CLK_EN;
+	rand uvm_reg_field GDMA_MISC_CONF_REG_gdma_clk_en;
+	rand uvm_reg_field gdma_clk_en;
 
 
 covergroup cg_addr (input string name);
@@ -252,20 +252,27 @@ endgroup
       this.default_map = create_map("", 0, 4, UVM_LITTLE_ENDIAN, 0);
       this.GDMA_MISC_CONF_REG = ral_reg_user_reg_model_GDMA_MISC_CONF_REG::type_id::create("GDMA_MISC_CONF_REG",,get_full_name());
       if(this.GDMA_MISC_CONF_REG.has_coverage(UVM_CVR_REG_BITS))
-      	this.GDMA_MISC_CONF_REG.cg_bits.option.name = "GDMA_MISC_CONF_REG";
+      	this.GDMA_MISC_CONF_REG.cg_bits.option.name = {get_name(), ".", "GDMA_MISC_CONF_REG_bits"};
       this.GDMA_MISC_CONF_REG.configure(this, null, "");
       this.GDMA_MISC_CONF_REG.build();
+         this.GDMA_MISC_CONF_REG.add_hdl_path('{
+            '{"resvered1", 4, 28},
+            '{"gdma_ahbm_rst_inter", 3, 1},
+            '{"gdma_arb_pri_dis", 2, 1},
+            '{"resvered0", 1, 1},
+            '{"gdma_clk_en", 0, 1}
+         });
       this.default_map.add_reg(this.GDMA_MISC_CONF_REG, `UVM_REG_ADDR_WIDTH'h44, "RW", 0);
 		this.GDMA_MISC_CONF_REG_resvered1 = this.GDMA_MISC_CONF_REG.resvered1;
 		this.resvered1 = this.GDMA_MISC_CONF_REG.resvered1;
-		this.GDMA_MISC_CONF_REG_GDMA_AHBM_RST_INTER = this.GDMA_MISC_CONF_REG.GDMA_AHBM_RST_INTER;
-		this.GDMA_AHBM_RST_INTER = this.GDMA_MISC_CONF_REG.GDMA_AHBM_RST_INTER;
-		this.GDMA_MISC_CONF_REG_GDMA_ARB_PRI_DIS = this.GDMA_MISC_CONF_REG.GDMA_ARB_PRI_DIS;
-		this.GDMA_ARB_PRI_DIS = this.GDMA_MISC_CONF_REG.GDMA_ARB_PRI_DIS;
+		this.GDMA_MISC_CONF_REG_gdma_ahbm_rst_inter = this.GDMA_MISC_CONF_REG.gdma_ahbm_rst_inter;
+		this.gdma_ahbm_rst_inter = this.GDMA_MISC_CONF_REG.gdma_ahbm_rst_inter;
+		this.GDMA_MISC_CONF_REG_gdma_arb_pri_dis = this.GDMA_MISC_CONF_REG.gdma_arb_pri_dis;
+		this.gdma_arb_pri_dis = this.GDMA_MISC_CONF_REG.gdma_arb_pri_dis;
 		this.GDMA_MISC_CONF_REG_resvered0 = this.GDMA_MISC_CONF_REG.resvered0;
 		this.resvered0 = this.GDMA_MISC_CONF_REG.resvered0;
-		this.GDMA_MISC_CONF_REG_GDMA_CLK_EN = this.GDMA_MISC_CONF_REG.GDMA_CLK_EN;
-		this.GDMA_CLK_EN = this.GDMA_MISC_CONF_REG.GDMA_CLK_EN;
+		this.GDMA_MISC_CONF_REG_gdma_clk_en = this.GDMA_MISC_CONF_REG.gdma_clk_en;
+		this.gdma_clk_en = this.GDMA_MISC_CONF_REG.gdma_clk_en;
       this.tx_ram = ral_mem_user_reg_model_tx_ram::type_id::create("tx_ram",,get_full_name());
       this.tx_ram.configure(this, "");
       this.tx_ram.build();
@@ -294,5 +301,4 @@ endclass : ral_block_user_reg_model
 
 
 endpackage
-
 `endif

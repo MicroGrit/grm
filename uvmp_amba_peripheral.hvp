@@ -33,19 +33,28 @@ plan block_user_reg_model;
     attribute string path = "";
 
     feature reg_GDMA_MISC_CONF_REG;
-        subplan reg_user_reg_model_GDMA_MISC_CONF_REG #(path="GDMA_MISC_CONF_REG");
+        subplan reg_user_reg_model_GDMA_MISC_CONF_REG #(path="${path}.GDMA_MISC_CONF_REG");
     endfeature
 
     feature address_map;
         measure Group fcov;
-            source = "group instance:**::ral_block_user_reg_model::cg_addr";
+            source = "group instance:**::ral_block_user_reg_model::cg_addr.${path}";
         endmeasure
     endfeature
 
     feature field_values;
         measure Group fcov;
-            source = "group instance:**::cg_vals";
+            source = "group instance:**::cg_vals.${path}.*";
         endmeasure
+    endfeature
+endplan
+
+
+plan sys_amba_peripheral;
+    attribute string path = "";
+
+    feature block_user_reg_model0;
+        subplan block_user_reg_model #(path="user_reg_model0");
     endfeature
 endplan
 

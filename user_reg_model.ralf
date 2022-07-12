@@ -1,5 +1,3 @@
-#	module:	user_reg_model
-#	gen_time:	2022-07-04 20:39:37 CST
 block user_reg_model {
 	bytes	4;
 	endian	little;
