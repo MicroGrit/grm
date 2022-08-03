@@ -40,6 +40,7 @@ COLOR = {
 
 class GenRegModel(object):
     def __init__(self) -> None:
+        super().__init__()
         self.grm_description = COLOR['red'] + COLOR['bold'] \
                   + 'Generate UVM Register Model(grm)' \
                   + COLOR['end']
@@ -53,7 +54,6 @@ class GenRegModel(object):
         self.ralf_file_name = self.modlue_name[0] + '.ralf'
 
         print(self.parser.description)
-        # print(self.format_msg(COLOR['yellow'] + COLOR['bold'] + "Input:", os.path.abspath(self.args.f))
     
     @staticmethod
     def format_msg(color, message):
@@ -96,6 +96,7 @@ class GenRegModel(object):
         os.system(cmd)
     
     def runner(self):
+        print(self.format_msg(COLOR['yellow'] + COLOR['bold'] ,"Input:"), os.path.abspath(self.args.f))
         generate_time = time.strftime("%Y-%m-%d %H:%M:%S %Z")
         ralf_file_annotate = f'#\tmodule:\t{self.modlue_name[0]}\n' \
                              + f'#\tgen_time:\t{generate_time}\n'
@@ -107,7 +108,7 @@ class GenRegModel(object):
         
         with open(self.args.f, 'r', newline='', encoding='utf-8') as csv_file, \
             open(self.ralf_file_name, 'w+', encoding='utf-8') as ralf_file:
-            ralf_file.write(ralf_file_annotate)
+            # ralf_file.write(ralf_file_annotate)
             ralf_file.write(ralf_header)
             rows = csv.reader(csv_file)
             # print(csv_file)
